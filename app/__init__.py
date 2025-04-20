@@ -22,15 +22,15 @@ def create_app():
 
     CORS(app)
 
-    with app.app_context():
-        db.create_all()
-
     # Load configuration from the Config class
     app.config.from_object(Config)
 
     # Initialize extensions with the app
     db.init_app(app)
     jwt.init_app(app)
+
+    with app.app_context():
+        db.create_all()
 
     # Register the token blocklist loader
     @jwt.token_in_blocklist_loader
