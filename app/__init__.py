@@ -37,11 +37,13 @@ def create_app():
         from .models import User  # import your models before creating
         db.create_all()
 
-    user1 = User(username="David", email="david@myemail.com", password="1234")
-    user2 = User(username="John", email="john@myemail.com", password="5678")
+        # ✅ Move this into the app context
+        if not User.query.first():  # Optional: only add users if table is empty
+            user1 = User(username="David", email="david@myemail.com", password="1234")
+            user2 = User(username="John", email="john@myemail.com", password="5678")
 
-    db.session.add_all([user1, user2])
-    db.session.commit()
+            db.session.add_all([user1, user2])
+            db.session.commit()
 
     # Register the token blocklist loader
     @jwt.token_in_blocklist_loader
