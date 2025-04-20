@@ -22,6 +22,9 @@ def create_app():
 
     CORS(app)
 
+    with app.app_context():
+        db.create_all()
+
     # Load configuration from the Config class
     app.config.from_object(Config)
 
