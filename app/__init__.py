@@ -1,5 +1,6 @@
 # app/__init__.py
 from flask import Flask, jsonify
+from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 from .config import Config
@@ -18,6 +19,8 @@ def create_app():
     Creates and configures the Flask application.
     """
     app = Flask(__name__)
+
+    CORS(app)
 
     # Load configuration from the Config class
     app.config.from_object(Config)
