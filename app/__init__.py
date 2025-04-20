@@ -4,8 +4,8 @@ from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 from .config import Config
-from .models import db  # or however you import db
-from .models import User  # import your models before creating
+# from .models import db  # or however you import db
+# from .models import User  # import your models before creating
 
 # app = Flask(__name__)
 # Initialize extensions
@@ -31,7 +31,10 @@ def create_app():
     db.init_app(app)
     jwt.init_app(app)
 
+    from .models import User  # import your models before creating
+
     with app.app_context():
+        from .models import db  # or however you import db
         db.create_all()
 
     # Register the token blocklist loader
