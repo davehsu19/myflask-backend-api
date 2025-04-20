@@ -31,10 +31,10 @@ def create_app():
     db.init_app(app)
     jwt.init_app(app)
 
-    from .models import User  # import your models before creating
+    # from .models import User  # import your models before creating
 
     with app.app_context():
-        from .models import db  # or however you import db
+        from .models import User  # import your models before creating
         db.create_all()
 
     # Register the token blocklist loader
